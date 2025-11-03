@@ -1,0 +1,161 @@
+\documentclass[a3paper]{article}
+\usepackage[margin=0.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xifthen}
+
+\usepackage{etoolbox}
+\usepackage{pgfmath} % para \pgfmathtruncatemacro
+\usepackage[T1]{fontenc}
+% \usepackage[OT1]{fontenc}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usepackage{pgffor}
+\pagestyle{empty}
+        
+% === CONFIGURACIÓN DE CARTAS ===
+\newlength{\cardwidth}\setlength{\cardwidth}{5.7cm}
+\newlength{\cardheight}\setlength{\cardheight}{9cm}
+
+% Macro para dibujar una carta
+% \newcommand{\drawcard}[4]{%
+%   % #1 = tipo (macro/micro), #2 = nombre, #3 = x, #4 = y
+%   \begin{scope}[shift={(#3,#4)}]
+%     \draw[rounded corners=5pt,thick] (0,0) rectangle (\cardwidth,-\cardheight);
+%     \node[anchor=center] at (\cardwidth/2,-\cardheight/2)
+%       {\includegraphics[width=0.9\cardwidth,height=0.9\cardheight,keepaspectratio]{#1/#2.png}};
+%     \ifx#1micro
+%       \node[anchor=south east,xshift=-2mm,yshift=2mm] at (\cardwidth,-\cardheight)
+%         {\includegraphics[width=1.5cm]{macro/#2.png}};
+%     \fi
+%   \end{scope}
+% }
+
+\newcommand{\drawmicro}[3]{%
+  % #1 = nombre archivo
+  % #2 = nombre quimico
+  % #3 = x, #4 = y (coordenadas en cm)
+  \begin{scope}[shift={#3}]
+    % Marco de la carta
+    \draw[rounded corners=5pt,thick] (0,0) rectangle (\cardwidth,-\cardheight);
+
+    \node[anchor=center, shift={(0,1)}] at (.5\cardwidth,-.2\cardheight)
+      {\LARGE #2};
+
+    % Imagen principal
+    \node[anchor=center, shift={(0,.2)}] at (\cardwidth/2,-\cardheight/2)
+      {\includegraphics[width=0.9\cardwidth,height=0.9\cardheight,keepaspectratio]{micro/#1.png}};
+
+    % Definir centro y radio del círculo
+    \begin{scope}
+      % Posicionar el centro en esquina inferior derecha
+      \clip (\cardwidth-1.5cm,-\cardheight+1.5cm) circle[radius=1.4cm];
+      % Insertar la macro centrada
+      \node[anchor=center] at (\cardwidth-1.5cm,-\cardheight+1.5cm)
+         {\includegraphics[width=0.9\cardwidth,height=0.9\cardheight,keepaspectratio]{inset/#1.png}};
+    \end{scope}
+    % Opcional: dibujar borde del círculo
+    \draw[thick] (\cardwidth-1.5cm,-\cardheight+1.5cm) circle[radius=1.4cm];
+  \end{scope}
+}
+\newcommand{\drawmacro}[2]{%
+  % #1 = nombre
+  % #2 = x, #3 = y (coordenadas en cm)
+  \begin{scope}[shift={#2}]
+    % Marco de la carta
+    \draw[rounded corners=5pt,thick] (0,0) rectangle (\cardwidth,-\cardheight);
+
+    % Imagen principal
+    \node[anchor=center] at (\cardwidth/2,-\cardheight/2)
+      {\includegraphics[width=0.9\cardwidth,height=0.9\cardheight,keepaspectratio]{macro/#1.png}};
+
+  \end{scope}
+}
+
+
+\begin{document}
+
+\gdef\globaln{0}
+\gdef\globalcw{5.7} 
+\gdef\globalch{9} 
+
+% \def\molecules{{cafeina,agua,etanol,glucosa,urea,acetona,metanol}}
+% El origen
+\begin{tikzpicture}[remember picture, overlay]
+    \coordinate (origen) at (0,0);
+\end{tikzpicture}
+
+\foreach \mol/\name in {
+ac-acetilsalicilico/ácido acetilsalicílico
+,ac-ascorbico/ácido ascórbico
+,adn/ADN
+,agua/agua
+,alicina/alicina
+,cafeina/cafeína
+,celulosa/celulosa
+,clorofila-a/clorofila A
+,etanol/etanol
+,ftalocianina-Cu/ftalocianina de cobre
+,glucosa/glucosa
+,hidroxiapatita/hidroxiapatita
+,laurilsulfato-Na/laurilsulfato de sodio
+,lignina/lignina
+,metano/metano
+,nicotina/nicotina
+,queratina/queratina
+,SiO2/dióxido de silicio
+,sucrosa/sucrosa
+,sulfanona/sulfanona
+   ,ac-acetilsalicilico/ácido acetilsalicílico
+,ac-ascorbico/ácido ascórbico
+,adn/ADN
+,agua/agua
+,alicina/alicina
+,cafeina/cafeína
+,celulosa/celulosa
+,clorofila-a/clorofila A
+,etanol/etanol
+,ftalocianina-Cu/ftalocianina de cobre
+,glucosa/glucosa
+,hidroxiapatita/hidroxiapatita
+,laurilsulfato-Na/laurilsulfato de sodio
+,lignina/lignina
+,metano/metano
+,nicotina/nicotina
+,queratina/queratina
+,SiO2/dióxido de silicio
+,sucrosa/sucrosa
+,sulfanona/sulfanona 
+}{
+
+    % Calcula fila y columna de la pareja (macro+micro)
+    \pgfmathtruncatemacro{\col}{int(mod(\globaln,2))}
+    \pgfmathtruncatemacro{\row}{int(\globaln/2)}
+    
+    % Coordenadas
+    \pgfmathsetmacro{\x}{\col*2*(\globalcw+0.5)}
+    \pgfmathsetmacro{\y}{-\row*(\globalch+0.5)}
+    
+    \begin{tikzpicture}[remember picture,overlay]
+        \pgfmathtruncatemacro\xc{\globaln+1}
+        \path(origen) ++(\x,\y) coordinate(A);
+        \path(A) ++(\globalcw,0) ++(0.5,0) coordinate(B);
+        \drawmacro{\mol}{(A)}
+        \drawmicro{\mol}{\name}{(B)}
+        \global\let\globaln=\xc
+    \end{tikzpicture}
+    
+    % \advance\c by 1
+    % % Salto de página si se llenó la hoja
+    \ifnum\globaln=10
+      \clearpage
+      \begin{tikzpicture}[remember picture, overlay]
+          \coordinate (origen) at (0,0);
+      \end{tikzpicture}
+      \pgfmathtruncatemacro\xc{0}
+      \global\let\globaln=\xc
+    \fi
+}
+
+\end{document}
+
