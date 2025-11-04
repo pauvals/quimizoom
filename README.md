@@ -1,4 +1,4 @@
-[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-tomato.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ## quimizoom
 
@@ -11,7 +11,7 @@ cotidiana y una molécula que lo conforma, observando qué propiedad le da esta 
 
 
 ### Contacto
-Pueden enviar un correo a Paula en [pauvsaravia@unc.edu.ar](mailto:pauvsaravia@unc.edu.ar). Todas las sugerencias son bienvenidas =)
+Pueden enviar un correo a Paula en [pauvsaravia@unc.edu.ar](mailto:pauvsaravia@unc.edu.ar).
 
 [quimizoom](https://github.com/pauvals/quimizoom) © 2025 by [Paula Saravia, Alexis Paz, Melina Nabac, Martín Zoloff Michoff](https://github.com/pauvals) is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)![](https://mirrors.creativecommons.org/presskit/icons/cc.svg)![](https://mirrors.creativecommons.org/presskit/icons/by.svg)![](https://mirrors.creativecommons.org/presskit/icons/sa.svg)
 
