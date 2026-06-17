@@ -12,6 +12,7 @@ cotidiana y una molécula que lo conforma, observando qué propiedad le da esta 
 ## Compilación
 
 Correr
+
     pdflatex main.tex
 
 y se obtiene el archivo `main.pdf`.
