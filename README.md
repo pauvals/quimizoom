@@ -9,6 +9,12 @@ Nacional de Córdoba, Argentina. Fue usado en una actividad representando al Dep
 La dinámica de juego es tipo _memotest_, aunque se pueden implementar otras. El objetivo del juego es formar parejas entre un objeto de la vida 
 cotidiana y una molécula que lo conforma, observando qué propiedad le da esta molécula al objeto.
 
+## Compilación
+
+Correr
+    pdflatex main.tex
+
+y se obtiene el archivo `main.pdf`.
 
 ### Contacto
 Pueden enviar un correo a Paula en [pauvsaravia@unc.edu.ar](mailto:pauvsaravia@unc.edu.ar).
